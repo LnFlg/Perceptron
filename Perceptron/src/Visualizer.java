@@ -13,6 +13,8 @@ public class Visualizer  extends Frame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static Visualizer visualizerInstance;
 
 	private static final int SIZE = 600;
 
@@ -21,7 +23,7 @@ public class Visualizer  extends Frame {
 	private static final double yMin = -10;
 	private static final double yMax = 10;
 
-	public Visualizer() {
+	private Visualizer() {
 
 		this.setSize(SIZE, SIZE);
 		addWindowListener(new WindowAdapter() {
@@ -29,6 +31,13 @@ public class Visualizer  extends Frame {
 				dispose();
 			}
 		});
+	}
+	
+	public static Visualizer getInstance() {
+		if(visualizerInstance == null) {
+			visualizerInstance = new Visualizer();
+		}
+		return visualizerInstance;
 	}
 	
 	public void drawPoints(Graphics g, double x, double x2, Color color) {
