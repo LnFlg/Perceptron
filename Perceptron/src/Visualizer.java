@@ -6,6 +6,7 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class Visualizer  extends Frame {
 
@@ -40,7 +41,7 @@ public class Visualizer  extends Frame {
 		return visualizerInstance;
 	}
 	
-	public void drawPoints(Graphics g, double x, double x2, Color color) {
+	private void drawPoints(Graphics g, double x, double x2, Color color) {
 		g.setColor(color);
 		g.drawOval(berechneXPixel(x), berechneYPixel(f(x)), 10, 10);
 		g.fillOval(berechneXPixel(x), berechneYPixel(f(x)), 10, 10);
@@ -58,6 +59,15 @@ public class Visualizer  extends Frame {
 		//zeichnet Gerade
 		drawMyLine(-10, 10, 10, -10, g);
 	}
+	
+//	public void showData(ArrayList<Point> pointList, PerceptronData perceptronData) {
+//		for(ArrayList<Point> point : pointList) {
+//			if(point.getColor.equals("rot")) {
+//				drawPoints(g,)
+//			}
+//		}
+//	}
+//	
 	private void drawMyLine(double x1, double y1, double x2, double y2, Graphics g) {
 		g.setColor(Color.GREEN);
 		g.drawLine(berechneXPixel(x1), berechneYPixel(y1), berechneXPixel(x2), berechneYPixel(y2));
@@ -105,5 +115,6 @@ public class Visualizer  extends Frame {
 
 	public static void main(String[] args) {
 		new Visualizer().setVisible(true);
+		
 	}
 }
