@@ -1,6 +1,3 @@
-
-
-
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -16,9 +13,8 @@ public class Visualizer  extends Frame {
 	private static final long serialVersionUID = 1L;
 	
 	private static Visualizer visualizerInstance;
-
 	private static final int SIZE = 600;
-
+	private Graphics graphic;
 	private static final double xMin = -10;
 	private static final double xMax =10;
 	private static final double yMin = -10;
@@ -49,29 +45,29 @@ public class Visualizer  extends Frame {
 
 	public void paint(Graphics g) {
 		zeicheKoordinatenSystem(g);
-		for (double x = xMin; x < xMax; x += 0.5) {
-			if(x < 0)
-				drawPoints(g, x, x, Color.BLUE);
-			else
-				drawPoints(g, x, x, Color.RED);
-
-		}
-		//zeichnet Gerade
-		drawMyLine(-10, 10, 10, -10, g);
+		graphic = g;
 	}
-	
+// klasse PerceptronData benötigt
 //	public void showData(ArrayList<Point> pointList, PerceptronData perceptronData) {
-//		for(ArrayList<Point> point : pointList) {
-//			if(point.getColor.equals("rot")) {
-//				drawPoints(g,)
+//		for(Point point : pointList) {
+//			if(point.getColor().equals("rot")) {
+//				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.RED);
+//			}else if(point.getColor().equals("blau")) {
+//				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.BLUE);
 //			}
 //		}
+//		
 //	}
-//	
-	private void drawMyLine(double x1, double y1, double x2, double y2, Graphics g) {
-		g.setColor(Color.GREEN);
-		g.drawLine(berechneXPixel(x1), berechneYPixel(y1), berechneXPixel(x2), berechneYPixel(y2));
-	}
+//	//w0 ist der bias/schwellwert 
+//	//w1 und w2 aus dem Gewichtsvektor
+//	private void drawMyLine(PerceptronData perceptronData) {
+//		graphic.setColor(Color.GREEN);
+//		double x1= xMin;
+//		double y1= (-(w0/w2)/(w0/w1))*x1 - (w0/w2);
+//		double x2= xMax;
+//		double y2=(-(w0/w2)/(w0/w1))*x2 - (w0/w2);
+//		graphic.drawLine(berechneXPixel(x1), berechneYPixel(y1), berechneXPixel(x2), berechneYPixel(y2));
+//	}
 
 	private void zeicheKoordinatenSystem(Graphics g) {
 		zeichneXAchse(g);
@@ -113,8 +109,8 @@ public class Visualizer  extends Frame {
 		return x * x;
 	}
 
-	public static void main(String[] args) {
-		new Visualizer().setVisible(true);
-		
-	}
+//	public static void main(String[] args) {
+//		new Visualizer().setVisible(true);
+//		
+//	}
 }
