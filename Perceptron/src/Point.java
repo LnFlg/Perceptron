@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 
 /*
  * Parallel Computing SS 18
@@ -10,14 +11,16 @@
 public class Point {
 	private double x_value;
 	private double y_value;
-	private String color;
+	private int type;
 		
 	
-	public Point(double x_value, double y_value, String color) {
-		super();
+	public Point(double x_value, double y_value, int type) {
+		
+		if(type != 1 && type != 0) throw new InputMismatchException("Type can only be 0 or 1 (integer)");
+		
 		this.x_value = x_value;
 		this.y_value = y_value;
-		this.color = color;
+		this.type = type;
 	}
 
 	public double getX_value() {
@@ -28,11 +31,9 @@ public class Point {
 		return y_value;
 	}
 	
-	public String getColor() {
-		return color;
+	public int getType() {
+		return type;
 	}
-	
-	
 	
 	
 	

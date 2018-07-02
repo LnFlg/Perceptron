@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * 
  */
@@ -8,25 +10,7 @@
  */
 public class PerceptronLogic {
 
-	
-	private static PerceptronLogic pLogicInstance;
-	
-	/**
-	 * 
-	 */
-	public PerceptronLogic() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/**
-	 * Singleton Implementation
-	 */
-	public static PerceptronLogic getInstance() {
-		if(pLogicInstance == null) {
-			pLogicInstance = new PerceptronLogic();
-		}
-		return pLogicInstance;
-	}
+
 	
 	
 	//===================================================================================================================
@@ -34,179 +18,95 @@ public class PerceptronLogic {
 	// original code explained at:
 	// https://www.youtube.com/watch?v=4aksMtJHWEQ 
 
-	private static int maxIterations = 100;
 
 
-	public void setIterations(int iterations) {
-		maxIterations = iterations;
-	}
-
-
-	static double LEARNING_RATE = 0.001;
-	static int NUM_INSTANCES = 100;
-	static int theta = 0;
-
-	public static void main(String[] args) {
+	public static PerceptronData trainPerceptron(ArrayList<Point> points) {
 		
-		//TODO 2 vvvvvvvvvvvvvvvv  read from Classes not arrays vvvvvvvvv
-		
-		// three variables (features)
-		double[] x = new double[NUM_INSTANCES];
-		double[] y = new double[NUM_INSTANCES];
-		int[] outputs = new int[NUM_INSTANCES];
-
-		// fifty random points of class 1
-		for (int i = 0; i < NUM_INSTANCES / 2; ++i) {
-			x[i] = randomNumber(-1, 0);
-			y[i] = randomNumber(-1, 0);
-			outputs[i] = 1;
-			System.out.println(x[i] + "\t" + y[i] + "\t" + outputs[i]);
-		}
-
-		// fifty random points of class 0
-		for (int i = 50; i < NUM_INSTANCES; i++) {
-			x[i] = randomNumber(0.01, 1);
-			y[i] = randomNumber(0.01, 1);
-			outputs[i] = 0;
-			System.out.println(x[i] + "\t" + y[i] + "\t" + outputs[i]);
-		}
-		
-		// ^^^^^^^^^^^^^^^^^^^^^^^^^^ todo 2 end  ^^^^^^^^^^^^^^^^^^^^^^^
-
+		int maxIterations = 100;
+		double LEARNING_RATE = 0.001;
+		int theta = 0;
 
 		//declarations
 		double[] weights = new double[3]; // 2 for input variables and one for bias
 		double localError, globalError;
-		int p, iteration, output;
+		int iteration, output;
+		ArrayList<Point> misclassifiedPoints = new ArrayList<Point>();
 
 		//initialisations
-		weights[0] = randomNumber(0, 1);
-		weights[1] = randomNumber(0, 1);
-		weights[2] = randomNumber(0, 1);
+		weights[0] = randomDoubleNumber(0, 1);
+		weights[1] = randomDoubleNumber(0, 1);
+		weights[2] = randomDoubleNumber(0, 1);
 
 		
-		//TODO 3 vvvvvvvvvvvvvvvvvvvvvv change to use classes instead of arrays vvvvvvvvvvvvvvvvvvvvvvv
 		iteration = 0;
 		do {
 			iteration++;
 			globalError = 0;
-			// loop through all instances (complete one epoch)
-			for (p = 0; p < NUM_INSTANCES; p++) {
+			
+			// loop through all instances (complete one epoch) to get an error measure for this weightset
+			for (Point point : points) {
 				// calculate predicted class
-				output = calculateOutput(theta, weights, x[p], y[p]);
-				// difference between predicted and actual class values
-				localError = outputs[p] - output;
-				// update weights
-				weights[0] += LEARNING_RATE * localError * x[p];
-				weights[1] += LEARNING_RATE * localError * y[p];
-
-				// update bias
-				weights[2] += LEARNING_RATE * localError;
-
+				output = calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
+				// difference between predicted and actual class values(-1, 0 or 1)
+				localError = point.getType() - output;
 				globalError += (localError * localError);
+				
+				//gather misclassified points to use them later for updated weights
+				if(localError !=0) misclassifiedPoints.add(point);
 			}
+			
 			/* Root Mean Squared Error */
-			System.out.println("Iteration " + iteration + " : RMSE = " + Math.sqrt(globalError / NUM_INSTANCES));
+			System.out.println("Iteration " + iteration + " : RMSE = " + Math.sqrt(globalError / points.size()));
+			
+			//TODO save if better than weightset in pocket
+			
+			//Get a random misclassified point and its local error
+			Point point = misclassifiedPoints.get(randomIntegerNumber(0, misclassifiedPoints.size()));
+			localError = calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
+			
+			// update weights
+			weights[0] += LEARNING_RATE * localError * point.getX_value();
+			weights[1] += LEARNING_RATE * localError * point.getY_Value();
+
+			// update bias
+			weights[2] += LEARNING_RATE * localError;
+			
 		} while (globalError != 0 && iteration < maxIterations);
 
 		System.out.println("\n========\nDecision boundary equation:");
 		System.out.println(weights[0] + "*x " + weights[1] + "*y + " + weights[2] + " = 0");
-
 		
-		//TODO 4 vvvvvvvvvvvv put this in another function to be called by main class vvvvvvvvvv 
-		//vvvvvvvvvvvvvvvvvvv also change values to not be 100% lin. separable vvvvvvvvvvvvvvvvv
-		
-		// generate 10 new random pointns and check their classes
-		// notice the range of -1 and 1 means the new point could be of class 1 or 0
-		// -10 to 10 covers all the ranges we used in generating the 50 classes of 1s
-		// and 0s
-
-		for (int j = 0; j < 100; ++j) {
-			double x1 = randomNumber(-1, 1);
-			double y1 = randomNumber(-1, 1);
-
-			output = calculateOutput(theta, weights, x1, y1);
-			System.out.println("\n=======\nNew Random Point:");
-			System.out.println("x = " + x1 + ",y = " + y1);
-			System.out.println("class = " + output);
-		}
-
-		double avg1 = 0, avg2 = 0;
-		for (int j = 0; j < 10; ++j) {
-
-			int mis = 0;
-
-			// P[f(x)!=g(x) for N = 10
-			// fifty random points of class 1
-			for (int i = 0; i < 5; ++i) {
-				double x1 = randomNumber(-1, 0);
-				double y1 = randomNumber(-1, 0);
-				output = calculateOutput(theta, weights, x1, y1);
-				if (output != 1)
-					mis++;
-			}
-
-			// fifty random points of class 0
-			for (int i = 0; i < 5; i++) {
-				double x1 = randomNumber(0.01, 1);
-				double y1 = randomNumber(0.01, 1);
-				output = calculateOutput(theta, weights, x1, y1);
-				if (output != 0)
-					mis++;
-			}
-			avg1 += (double) mis / 10;
-//	            System.out.println("P[f(x)!=g(x) (N=10) = "+((double)mis/10));
-
-			mis = 0;
-			// P[f(x)!=g(x) for N = 100
-			// fifty random points of class 1
-			for (int i = 0; i < 50; ++i) {
-				double x1 = randomNumber(-1, 0);
-				double y1 = randomNumber(-1, 0);
-				output = calculateOutput(theta, weights, x1, y1);
-				if (output != 1)
-					mis++;
-			}
-
-			// fifty random points of class 0
-			for (int i = 0; i < 50; i++) {
-				double x1 = randomNumber(0.1, 1);
-				double y1 = randomNumber(0.1, 1);
-				output = calculateOutput(theta, weights, x1, y1);
-				if (output != 0)
-					mis++;
-			}
-
-			avg2 += (double) mis / 100;
-		}
-		System.out.println("P[f(x)!=g(x) (N=10) over 10*10 samples = " + avg1 / 10);
-		System.out.println("P[f(x)!=g(x) (N=100) over 10*100 samples = " + avg2 / 10);
+		//TODO return pocketed PerceptronDataset
+		return null;		
 	}
 
+	
+	
 	/**
 	 * returns a random double value within a given range
 	 * 
-	 * @param min the minimum value of the required range(int)
-	 * @param max the maximum value of the required range(int)
-	 * @return a random double value between min and max
 	 */
-	public static double randomNumber(double min, double max) {
+	public static double randomDoubleNumber(double min, double max) {
 		double d = min + Math.random() * (max - min);
 		return d;
+	}
+	
+	/**
+	 * returns a random int value within a given range
+	 * 
+	 */
+	public static int randomIntegerNumber(int min, int max) {
+		int i = min + (int)(Math.random() * ((max - min) + 1));
+		return i;
 	}
 
 	/**
 	 * returns either 1 or 0 using a threshold function
 	 * 
-	 * @param theta   an integer value for the threshold
-	 * @param weights the array of weights
-	 * @param x       the x input value
-	 * @param y       the y input value
-	 * @param z       the z input value
-	 * @return 1 or 0
 	 */
 	static int calculateOutput(int theta, double weights[], double x, double y) {
 		double sum = x * weights[0] + y * weights[1] + weights[2];
 		return sum >= theta ? 1 : 0;
 	}
+
 }
