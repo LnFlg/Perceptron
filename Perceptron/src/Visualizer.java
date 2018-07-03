@@ -47,27 +47,30 @@ public class Visualizer  extends Frame {
 		zeicheKoordinatenSystem(g);
 		graphic = g;
 	}
-// klasse PerceptronData benötigt
-//	public void showData(ArrayList<Point> pointList, PerceptronData perceptronData) {
-//		for(Point point : pointList) {
-//			if(point.getColor().equals("rot")) {
-//				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.RED);
-//			}else if(point.getColor().equals("blau")) {
-//				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.BLUE);
-//			}
-//		}
-//		
-//	}
-//	//w0 ist der bias/schwellwert 
-//	//w1 und w2 aus dem Gewichtsvektor
-//	private void drawMyLine(PerceptronData perceptronData) {
-//		graphic.setColor(Color.GREEN);
-//		double x1= xMin;
-//		double y1= (-(w0/w2)/(w0/w1))*x1 - (w0/w2);
-//		double x2= xMax;
-//		double y2=(-(w0/w2)/(w0/w1))*x2 - (w0/w2);
-//		graphic.drawLine(berechneXPixel(x1), berechneYPixel(y1), berechneXPixel(x2), berechneYPixel(y2));
-//	}
+
+	public void showData(ArrayList<Point> pointList, PerceptronData perceptronData) {
+		for(Point point : pointList) {
+			if(point.getType() == 1) {
+				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.RED);
+			}else if(point.getType() == 0) {
+				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.BLUE);
+			}
+		}
+		drawMyLine(perceptronData);
+	}
+	//w0 ist der bias/schwellwert 
+	//w1 und w2 aus dem Gewichtsvektor
+	private void drawMyLine(PerceptronData perceptronData) {
+		graphic.setColor(Color.GREEN);
+		double w0 = perceptronData.getBias();
+		double w1 = perceptronData.getWeights().get(0);
+		double w2 = perceptronData.getWeights().get(1);
+		double x1= xMin;
+		double y1= (-(w0/w2)/(w0/w1))*x1 - (w0/w2);
+		double x2= xMax;
+		double y2=(-(w0/w2)/(w0/w1))*x2 - (w0/w2);
+		graphic.drawLine(berechneXPixel(x1), berechneYPixel(y1), berechneXPixel(x2), berechneYPixel(y2));
+	}
 
 	private void zeicheKoordinatenSystem(Graphics g) {
 		zeichneXAchse(g);
