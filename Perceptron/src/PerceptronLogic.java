@@ -20,9 +20,8 @@ public class PerceptronLogic {
 
 
 
-	public static PerceptronData trainPerceptron(ArrayList<Point> points) {
-		
-		int maxIterations = 100;
+	public static PerceptronData trainPerceptron(ArrayList<Point> points, int maxIterations) {
+		PerceptronData bestSeparator = new PerceptronData(); 
 		double LEARNING_RATE = 0.001;
 		int theta = 0;
 
@@ -59,6 +58,7 @@ public class PerceptronLogic {
 			System.out.println("Iteration " + iteration + " : RMSE = " + Math.sqrt(globalError / points.size()));
 			
 			//TODO save if better than weightset in pocket
+			if(globalError < bestSeparator.getError()) bestSeparator= new PerceptronData(weights, globalError );
 			
 			//Get a random misclassified point and its local error
 			Point point = misclassifiedPoints.get(randomIntegerNumber(0, misclassifiedPoints.size()));
@@ -76,8 +76,8 @@ public class PerceptronLogic {
 		System.out.println("\n========\nDecision boundary equation:");
 		System.out.println(weights[0] + "*x " + weights[1] + "*y + " + weights[2] + " = 0");
 		
-		//TODO return pocketed PerceptronDataset
-		return null;		
+
+		return bestSeparator;		
 	}
 
 	
