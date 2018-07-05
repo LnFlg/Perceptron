@@ -1,15 +1,8 @@
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 
 public class Visualizer  extends Frame {
@@ -21,10 +14,10 @@ public class Visualizer  extends Frame {
 	
 	private static Visualizer visualizerInstance;
 	private static final int SIZE = 600;
-	private static final double xMin = -5;
-	private static final double xMax =5;
-	private static final double yMin = -5;
-	private static final double yMax = 5;
+	private static final double xMin = -2;
+	private static final double xMax =2;
+	private static final double yMin = -2;
+	private static final double yMax = 2;
 	ArrayList<Point> pointList;
 	PerceptronData perceptronData;
 
@@ -57,7 +50,7 @@ public class Visualizer  extends Frame {
 		showData(g, pointList, perceptronData);	
 	}
 
-	public void showData(Graphics graphic, ArrayList<Point> pointList, PerceptronData perceptronData) {
+	private void showData(Graphics graphic, ArrayList<Point> pointList, PerceptronData perceptronData) {
 		for(Point point : pointList) {
 			if(point.getType() == 1) {
 				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.RED);
