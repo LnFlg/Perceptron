@@ -14,7 +14,13 @@ public class main {
 	 * 
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		double weights[] = {1,1,1};
+		PerceptronData test = new PerceptronData(weights, Double.valueOf(0));
+		ArrayList<Point> points= generateRandomSeparablePoints(10);
+		Visualizer v = Visualizer.getInstance();
+		v.showData(points, test);
+		v.setVisible(true);
+		
 	}
 	
 
