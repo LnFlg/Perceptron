@@ -7,8 +7,6 @@
 
 
 import java.util.*;
-import java.awt.Point;
-import java.nio.*;
 import java.nio.file.*;
 
 public class CsvParser{
@@ -24,7 +22,7 @@ public class CsvParser{
 				String[] result = line.split("\n");
 				for (String s: result) {
 					String[] pointarrayList = s.split(",");
-					Point point = new Point(Double.parseDouble(pointarrayList[0]),Double.parseDouble(pointarrayList[1]),String(pointarrayList[2]));
+					Point point = new Point(Double.parseDouble(pointarrayList[0]), Double.parseDouble(pointarrayList[1]), Integer.parseInt(pointarrayList[2]));
 					pointList.add(point);
 					System.out.print(s + " - ");
 					System.out.println();
@@ -36,6 +34,7 @@ public class CsvParser{
 	catch (Exception e) {
 		System.out.println(e.getMessage());
 	}
+		return null;
   }
 }
 
