@@ -22,7 +22,7 @@ public class PerceptronLogic {
 
 	public static PerceptronData trainPerceptron(ArrayList<Point> points, int maxIterations) {
 		PerceptronData bestSeparator = new PerceptronData(); 
-		double LEARNING_RATE = 0.001;
+		double LEARNING_RATE =  0.1;
 		int theta = 0;
 
 		//declarations
@@ -55,21 +55,23 @@ public class PerceptronLogic {
 			}
 			
 			/* Root Mean Squared Error */
-			System.out.println("Iteration " + iteration + " : RMSE = " + Math.sqrt(globalError / points.size()));
+			System.out.println(iteration +"von " + maxIterations + "  : " + globalError + "\n");
 			
-			//TODO save if better than weightset in pocket
+			//  save if better than weightset in pocket
 			if(globalError < bestSeparator.getError()) bestSeparator= new PerceptronData(weights, globalError );
 			
 			//Get a random misclassified point and its local error
-			Point point = misclassifiedPoints.get(randomIntegerNumber(0, misclassifiedPoints.size()));
-			localError = calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
 			
-			// update weights
-			weights[0] += LEARNING_RATE * localError * point.getX_value();
-			weights[1] += LEARNING_RATE * localError * point.getY_Value();
-
-			// update bias
-			weights[2] += LEARNING_RATE * localError;
+			if (misclassifiedPoints.size() != 0) {
+				Point point = misclassifiedPoints.get(randomIntegerNumber(0, misclassifiedPoints.size() - 1));
+				localError = point.getType() - calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
+				// update weights
+				weights[0] += LEARNING_RATE * localError * point.getX_value();
+				weights[1] += LEARNING_RATE * localError * point.getY_Value();
+				// update bias
+				weights[2] += LEARNING_RATE * localError;
+			}
+			misclassifiedPoints.clear();
 			
 		} while (globalError != 0 && iteration < maxIterations);
 
