@@ -1,8 +1,15 @@
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 
 public class Visualizer  extends Frame {
@@ -14,14 +21,16 @@ public class Visualizer  extends Frame {
 	
 	private static Visualizer visualizerInstance;
 	private static final int SIZE = 600;
-	private Graphics graphic;
-	private static final double xMin = -10;
-	private static final double xMax =10;
-	private static final double yMin = -10;
-	private static final double yMax = 10;
+	private static final double xMin = -5;
+	private static final double xMax =5;
+	private static final double yMin = -5;
+	private static final double yMax = 5;
+	ArrayList<Point> pointList;
+	PerceptronData perceptronData;
 
-	private Visualizer() {
-
+	private Visualizer(ArrayList<Point> list, PerceptronData perceptron) {
+		pointList = list;
+		perceptronData = perceptron;
 		this.setSize(SIZE, SIZE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -30,25 +39,25 @@ public class Visualizer  extends Frame {
 		});
 	}
 	
-	public static Visualizer getInstance() {
+	public static Visualizer getInstance(ArrayList<Point> pointList, PerceptronData perceptronData) {
 		if(visualizerInstance == null) {
-			visualizerInstance = new Visualizer();
+			visualizerInstance = new Visualizer( pointList, perceptronData);
 		}
 		return visualizerInstance;
 	}
 	
-	private void drawPoints(Graphics g, double x, double x2, Color color) {
+	private void drawPoints(Graphics g, double x, double y, Color color) {
 		g.setColor(color);
-		g.drawOval(berechneXPixel(x), berechneYPixel(f(x)), 10, 10);
-		g.fillOval(berechneXPixel(x), berechneYPixel(f(x)), 10, 10);
+		g.drawOval(berechneXPixel(x), berechneYPixel(y), 10, 10);
+		g.fillOval(berechneXPixel(x), berechneYPixel(y), 10, 10);
 	}
 
 	public void paint(Graphics g) {
 		zeicheKoordinatenSystem(g);
-		graphic = g;
+		showData(g, pointList, perceptronData);	
 	}
 
-	public void showData(ArrayList<Point> pointList, PerceptronData perceptronData) {
+	public void showData(Graphics graphic, ArrayList<Point> pointList, PerceptronData perceptronData) {
 		for(Point point : pointList) {
 			if(point.getType() == 1) {
 				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.RED);
@@ -56,11 +65,11 @@ public class Visualizer  extends Frame {
 				drawPoints(graphic,point.getX_value(),point.getY_Value(),Color.BLUE);
 			}
 		}
-		drawMyLine(perceptronData);
+		drawMyLine( graphic,perceptronData);
 	}
 	//w0 ist der bias/schwellwert 
 	//w1 und w2 aus dem Gewichtsvektor
-	private void drawMyLine(PerceptronData perceptronData) {
+	private void drawMyLine(Graphics graphic, PerceptronData perceptronData) {
 		graphic.setColor(Color.GREEN);
 		double w0 = perceptronData.getBias();
 		double w1 = perceptronData.getWeights().get(0);

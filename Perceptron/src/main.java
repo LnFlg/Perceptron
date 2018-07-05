@@ -17,9 +17,10 @@ public class main {
 		double weights[] = {1,1,1};
 		PerceptronData test = new PerceptronData(weights, Double.valueOf(0));
 		ArrayList<Point> points= generateRandomSeparablePoints(10);
-		Visualizer v = Visualizer.getInstance();
-		v.showData(points, test);
+		Visualizer v = Visualizer.getInstance(points, test);
 		v.setVisible(true);
+//		v.showData(points, test);
+		
 		
 	}
 	
