@@ -14,7 +14,14 @@ public class main {
 	 * 
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ArrayList<Point> points= generateRandomSeparablePoints(10);
+		PerceptronData test = PerceptronLogic.trainPerceptron(points, 50);
+		
+		Visualizer v = Visualizer.getInstance(points, test);
+		v.setVisible(true);
+//		v.showData(points, test);
+		
+		
 	}
 	
 
