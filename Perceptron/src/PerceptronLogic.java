@@ -74,7 +74,7 @@ public class PerceptronLogic {
 		
 		//stop timer and calc time elapsed incl. conversion from ns to ms
 		long endTime= System.nanoTime();
-		long timeElapsed = (startTime-endTime)/1000000;
+		long timeElapsed = (endTime-startTime)/1000000;
 		
 		/* Print data */
 		System.out.println("Perceptron training finished after " + iteration+" Iterations" + 
@@ -159,7 +159,7 @@ public class PerceptronLogic {
 		
 		//stop timer and calc time elapsed incl. conversion from ns to ms
 		long endTime= System.nanoTime();
-		long timeElapsed = (startTime-endTime)/1000000;
+		long timeElapsed = (endTime-startTime)/1000000;
 		
 		/* Print data */
 		System.out.println("Perceptron training finished after " + iteration+" Iterations" + 

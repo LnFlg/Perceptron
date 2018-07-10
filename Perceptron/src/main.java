@@ -26,7 +26,7 @@ public class main {
 		
 		//end timer, get time elapsed and convert from ns to ms
 		long endTime= System.nanoTime();
-		long timeElapsed= (startTime-endTime)/1000000; 
+		long timeElapsed= (endTime-startTime)/1000000; 
 		
 		//print time elapsed
 		System.out.println("\nThe whole Program ran for a total of " +timeElapsed+" ms");
