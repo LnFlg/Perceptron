@@ -14,14 +14,22 @@ public class main {
 	 * 
 	 */
 	public static void main(String[] args) {
-		ArrayList<Point> points= generateRandomSeparablePoints(10);
-		PerceptronData test = PerceptronLogic.trainPerceptron(points, 50);
+		//start timer
+		long startTime= System.nanoTime();
+		
+		ArrayList<Point> points= generateRandomSeparablePoints(50);
+		PerceptronData test = PerceptronLogic.trainPerceptronSequentially(points, 50);
 		
 		Visualizer v = Visualizer.getInstance(points, test);
 		v.setVisible(true);
 //		v.showData(points, test);
 		
+		//end timer, get time elapsed and convert from ns to ms
+		long endTime= System.nanoTime();
+		long timeElapsed= (startTime-endTime)/1000000; 
 		
+		//print time elapsed
+		System.out.println("\nThe whole Program ran for a total of " +timeElapsed+" ms");
 	}
 	
 
