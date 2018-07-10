@@ -33,7 +33,7 @@ public class PerceptronLogic {
 		weights[2] = randomDoubleNumber(0, 1);
 
 		//start timer
-		long startTime = System.nanoTime();
+		double startTime = System.nanoTime();
 		
 		iteration = 0;
 		do {
@@ -73,8 +73,8 @@ public class PerceptronLogic {
 		} while (globalError != 0 && iteration < maxIterations);
 		
 		//stop timer and calc time elapsed incl. conversion from ns to ms
-		long endTime= System.nanoTime();
-		long timeElapsed = (endTime-startTime)/1000000;
+		double endTime= System.nanoTime();
+		double timeElapsed = (endTime-startTime)/1000000;
 		
 		/* Print data */
 		System.out.println("Perceptron training finished after " + iteration+" Iterations" + 
@@ -110,7 +110,7 @@ public class PerceptronLogic {
 		weights[2] = randomDoubleNumber(0, 1);
 
 		//start timer
-		long startTime = System.nanoTime();
+		double startTime = System.nanoTime();
 		
 		
 		
@@ -158,8 +158,8 @@ public class PerceptronLogic {
 		
 		
 		//stop timer and calc time elapsed incl. conversion from ns to ms
-		long endTime= System.nanoTime();
-		long timeElapsed = (endTime-startTime)/1000000;
+		double endTime= System.nanoTime();
+		double timeElapsed = (endTime-startTime)/1000000;
 		
 		/* Print data */
 		System.out.println("Perceptron training finished after " + iteration+" Iterations" + 

@@ -15,7 +15,7 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		//start timer
-		long startTime= System.nanoTime();
+		double startTime= System.nanoTime();
 		
 		ArrayList<Point> points= generateRandomSeparablePoints(50);
 		PerceptronData test = PerceptronLogic.trainPerceptronSequentially(points, 50);
@@ -25,8 +25,8 @@ public class main {
 //		v.showData(points, test);
 		
 		//end timer, get time elapsed and convert from ns to ms
-		long endTime= System.nanoTime();
-		long timeElapsed= (endTime-startTime)/1000000; 
+		double endTime= System.nanoTime();
+		double timeElapsed= (endTime-startTime)/1000000; 
 		
 		//print time elapsed
 		System.out.println("\nThe whole Program ran for a total of " +timeElapsed+" ms");
