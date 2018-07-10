@@ -7,6 +7,10 @@
 
 
 import java.util.*;
+<<<<<<< HEAD
+import java.nio.*;
+=======
+>>>>>>> af271feb77672ea9ad026d90c3692096cc8a21d2
 import java.nio.file.*;
 
 public class CsvParser{
@@ -18,11 +22,14 @@ public class CsvParser{
 			List<String> lines =Files.readAllLines(Paths.get("src\\DArrayList<E>in.csv"));
 			ArrayList<Point> pointList = new ArrayList<Point>();
 			for(String line : lines) {
-				
 				String[] result = line.split("\n");
 				for (String s: result) {
 					String[] pointarrayList = s.split(",");
+<<<<<<< HEAD
+					Point point = new Point(Double.parseDouble(pointarrayList[0]),Double.parseDouble(pointarrayList[1]), Integer.parseInt(pointarrayList[2]));
+=======
 					Point point = new Point(Double.parseDouble(pointarrayList[0]), Double.parseDouble(pointarrayList[1]), Integer.parseInt(pointarrayList[2]));
+>>>>>>> af271feb77672ea9ad026d90c3692096cc8a21d2
 					pointList.add(point);
 					System.out.print(s + " - ");
 					System.out.println();
