@@ -163,7 +163,7 @@ public class PerceptronLogic {
 		
 		/* Print data */
 		System.out.println("Perceptron training finished after " + iteration+" Iterations" + 
-				" \n  Best Separator has an error of "+bestSeparator.getError()+".\n" +
+				" \nBest Separator has an error of "+bestSeparator.getError()+".\n" +
 				"Perceptron was trained parallel in "+ timeElapsed + "ms");
 		
 		return bestSeparator;		
