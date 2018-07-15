@@ -34,13 +34,13 @@ public class Main {
 			generateTestcaseSeparable(AMOUNT_POINTS_Case1, PATH_TESTCASE_SEPARABLE_Case1);
 		}
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case1))) {
-			generateTestcaseInseparable(AMOUNT_POINTS_Case1, PATH_TESTCASE_SEPARABLE_Case1);
+			generateTestcaseInseparable(AMOUNT_POINTS_Case1, PATH_TESTCASE_INSEPARABLE_Case1);
 		}
 		if (Files.notExists(Paths.get(PATH_TESTCASE_SEPARABLE_Case2))) {
 			generateTestcaseSeparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_SEPARABLE_Case2);
 		}
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
-			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_SEPARABLE_Case2);
+			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_INSEPARABLE_Case2);
 		}
 		
 		//Seperable
