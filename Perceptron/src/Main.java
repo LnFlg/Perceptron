@@ -39,7 +39,7 @@ public class Main {
 		//Read test case
 		ArrayList<Point> points = CsvParser.parseCSV(PATH_TESTCASE_INSEPARABLE);
 
-		PerceptronData test = PerceptronLogic.trainPerceptronParallel(points, MAX_ITERATIONS);
+		PerceptronData test = PerceptronLogic.trainPerceptronSequentially(points, MAX_ITERATIONS);
 		
 		Visualizer v = Visualizer.getInstance(points, test);
 		v.setVisible(true);
