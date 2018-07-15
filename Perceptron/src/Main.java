@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  */
 public class Main {
-	private static double timer = 0;
+	public static double timer = 0;
 	private static final String PATH_TESTCASE_INSEPARABLE_Case1 = "src\\data\\testInseparable.csv";
 	private static final String PATH_TESTCASE_SEPARABLE_Case1 = "src\\data\\testSeparable.csv";
 	private static final String PATH_TESTCASE_INSEPARABLE_Case2 = "src\\data\\testInseparable2.csv";
@@ -20,7 +20,7 @@ public class Main {
 	
 	private static final int MAX_ITERATIONS_Case1 = 100;
 	private static final int AMOUNT_POINTS_Case1 = 100;
-	private static final int MAX_ITERATIONS_Case2 = 300;
+	private static final int MAX_ITERATIONS_Case2 = 1000;
 	private static final int AMOUNT_POINTS_Case2 = 100;
 
 	/**
@@ -42,13 +42,13 @@ public class Main {
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
 			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_INSEPARABLE_Case2);
 		}
-		
+		System.out.println("seperable");
 		//Seperable
 		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
-		
+		System.out.println("inseperable");
 		//Inseperable
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
@@ -82,10 +82,10 @@ public class Main {
 		timer /=calls;
 		
 		// print algorithm time
-		System.out.println("\nPerceptron was trained parallel in "+ timer + "ms (average)");
+		System.out.println("\nPerceptron parallel in \t\t"+ timer + "ms (average)");
 
 		// print time elapsed
-		System.out.println("\nThe whole parallel Program ran for a total of " + timeElapsed + " ms (average)");
+		System.out.println("\nProgram parallel in \t\t" + timeElapsed + " ms (average)");
 
 	}
 	
@@ -114,10 +114,10 @@ public class Main {
 		timer /=calls;
 		
 		// print algorithm time
-		System.out.println("\nPerceptron was trained sequentially in "+ timer + "ms (average)");
+		System.out.println("\nPerceptron sequentially in \t"+ timer + "ms (average)");
 
 		// print time elapsed
-		System.out.println("\nThe whole sequentially Program ran for a total of " + timeElapsed + " ms (average)");
+		System.out.println("\nProgram sequentially in \t" + timeElapsed + " ms (average)");
 	}
 	
 	/**

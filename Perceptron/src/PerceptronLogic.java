@@ -84,11 +84,11 @@ public class PerceptronLogic {
 		// stop timer and calc time elapsed incl. conversion from ns to ms
 		double endTime = System.nanoTime();
 		double timeElapsed = (endTime - startTime) / 1000000;
-
+		Main.timer+= timeElapsed;
 		/* Print data */
-		System.out.println("Perceptron training finished after " + iteration + " Iterations"
-				+ " \n  Best Separator has an error of " + bestSeparator.getError() + ".\n"
-				+ "Perceptron was trained sequentially in " + timeElapsed + "ms");
+//		System.out.println("Perceptron training finished after " + iteration + " Iterations"
+//				+ " \n  Best Separator has an error of " + bestSeparator.getError() + ".\n"
+//				+ "Perceptron was trained sequentially in " + timeElapsed + "ms");
 
 		return bestSeparator;
 	}
@@ -109,18 +109,16 @@ public class PerceptronLogic {
 		// declarations
 		double[] weights = new double[3]; // 2 for input variables and one for bias
 		int iteration;
-		Double globalError = null;
+//		Double globalError = null;
 		Future<Double> result;
 		// initialisations
 		weights[0] = randomDoubleNumber(0, 1);
 		weights[1] = randomDoubleNumber(0, 1);
 		weights[2] = randomDoubleNumber(0, 1);
 
-		ReadWriteLock lock = new ReentrantReadWriteLock();
-
 		// Setup Threads
 		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-		System.out.println("Running on " + Runtime.getRuntime().availableProcessors() + " cores");
+//		System.out.println("Running on " + Runtime.getRuntime().availableProcessors() + " cores");
 		// start timer
 		double startTime = System.nanoTime();
 
@@ -171,24 +169,18 @@ public class PerceptronLogic {
 						// Get a random misclassified point and its local error
 						Point point = misclassifiedPoints.get(randomIntegerNumber(0, misclassifiedPoints.size() - 1));
 
-						lock.readLock().lock();
-						try {
-							localError = point.getType()
-									- calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
-						} finally {
-							lock.readLock().unlock();
-						}
+						
+						localError = point.getType()
+								- calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
 
-						lock.writeLock().lock();
-						try {
+						synchronized (exec) {
+							
 							// update weights
 							weights[0] += LEARNING_RATE * localError * point.getX_value();
 							weights[1] += LEARNING_RATE * localError * point.getY_Value();
 							// update bias
 							weights[2] += LEARNING_RATE * localError;
-						} finally {
-							lock.writeLock().unlock();
-						}
+						} 
 					}
 
 					misclassifiedPoints.clear();
@@ -203,11 +195,6 @@ public class PerceptronLogic {
 		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ toto end
 		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-		try {
-			globalError = result.get();
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
-		}
 		//System.out.println("Global Error " + globalError);
 
 		exec.shutdown();
@@ -220,11 +207,11 @@ public class PerceptronLogic {
 		// stop timer and calc time elapsed incl. conversion from ns to ms
 		double endTime = System.nanoTime();
 		double timeElapsed = (endTime - startTime) / 1000000;
-
+		Main.timer+= timeElapsed;
 		/* Print data */
-		System.out.println("Perceptron training finished after " + iteration + " Iterations"
-				+ " \nBest Separator has an error of " + bestSeparator.getError() + ".\n"
-				+ "Perceptron was trained parallel in " + timeElapsed + "ms");
+//		System.out.println("Perceptron training finished after " + iteration + " Iterations"
+//				+ " \nBest Separator has an error of " + bestSeparator.getError() + ".\n"
+//				+ "Perceptron was trained parallel in " + timeElapsed + "ms");
 
 		return PerceptronLogic.bestSeparator;
 	}
