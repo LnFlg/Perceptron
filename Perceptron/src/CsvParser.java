@@ -29,8 +29,6 @@ public class CsvParser {
 					Point point = new Point(Double.parseDouble(pointAttributes[0]),
 							Double.parseDouble(pointAttributes[1]), Integer.parseInt(pointAttributes[2]));
 					pointList.add(point);
-					System.out.print(s + " - ");
-					System.out.println();
 				}
 
 			}
