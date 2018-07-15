@@ -1,6 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * 
@@ -11,12 +12,16 @@ import java.util.ArrayList;
  *
  */
 public class Main {
-
-	private static final String PATH_TESTCASE_INSEPARABLE = "src\\data\\testInseparable.csv";
-	private static final String PATH_TESTCASE_SEPARABLE = "src\\data\\testSeparable.csv";
+	private static double timer = 0;
+	private static final String PATH_TESTCASE_INSEPARABLE_Case1 = "src\\data\\testInseparable.csv";
+	private static final String PATH_TESTCASE_SEPARABLE_Case1 = "src\\data\\testSeparable.csv";
+	private static final String PATH_TESTCASE_INSEPARABLE_Case2 = "src\\data\\testInseparable2.csv";
+	private static final String PATH_TESTCASE_SEPARABLE_Case2 = "src\\data\\testSeparable2.csv";
 	
-	private static final int MAX_ITERATIONS = 100;
-	private static final int AMOUNT_POINTS = 100;
+	private static final int MAX_ITERATIONS_Case1 = 100;
+	private static final int AMOUNT_POINTS_Case1 = 100;
+	private static final int MAX_ITERATIONS_Case2 = 300;
+	private static final int AMOUNT_POINTS_Case2 = 100;
 
 	/**
 	 * The Main function
@@ -24,36 +29,96 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		//If no test cases exist, generate them
-		if(Files.notExists(Paths.get(PATH_TESTCASE_SEPARABLE))){
-			generateTestcaseSeparable(AMOUNT_POINTS);
+		// If no test cases exist, generate them
+		if (Files.notExists(Paths.get(PATH_TESTCASE_SEPARABLE_Case1))) {
+			generateTestcaseSeparable(AMOUNT_POINTS_Case1, PATH_TESTCASE_SEPARABLE_Case1);
 		}
-		if(Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE))){
-			generateTestcaseInseparable(AMOUNT_POINTS);
+		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case1))) {
+			generateTestcaseInseparable(AMOUNT_POINTS_Case1, PATH_TESTCASE_SEPARABLE_Case1);
+		}
+		if (Files.notExists(Paths.get(PATH_TESTCASE_SEPARABLE_Case2))) {
+			generateTestcaseSeparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_SEPARABLE_Case2);
+		}
+		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
+			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_SEPARABLE_Case2);
 		}
 		
+		//Seperable
+		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 		
-		//start timer
-		double startTime= System.nanoTime();
+		//Inseperable
+		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+		runTestCaseParallel(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+		runTestCaseParallel(PATH_TESTCASE_INSEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 		
-		//Read test case
-		ArrayList<Point> points = CsvParser.parseCSV(PATH_TESTCASE_INSEPARABLE);
-
-		PerceptronData test = PerceptronLogic.trainPerceptronSequentially(points, MAX_ITERATIONS);
-		
-		Visualizer v = Visualizer.getInstance(points, test);
-		v.setVisible(true);
-//		v.showData(points, test);
-		
-		//end timer, get time elapsed and convert from ns to ms
-		double endTime= System.nanoTime();
-		double timeElapsed= (endTime-startTime)/1000000; 
-		
-		//print time elapsed
-		System.out.println("\nThe whole Program ran for a total of " +timeElapsed+" ms");
 	}
 	
+	private static void runTestCaseParallel(String pathTestcase, int maxIterations) {
+		// start timer
+		double startTime = System.nanoTime();
 
+		// Read test case
+		ArrayList<Point> points = CsvParser.parseCSV(pathTestcase);
+		// change the calls here
+		int calls =10;
+		//reset timer
+		timer = 0;
+		for(int i = calls; i > 0; i--) {
+			PerceptronData test = PerceptronLogic.trainPerceptronParallel(points, maxIterations);
+//			if(i == 1) {
+//				 Visualizer v = Visualizer.getInstance(points, test);
+//				 v.setVisible(true);
+//			}
+		}
+		
+		// end timer, get time elapsed and convert from ns to ms
+		double endTime = System.nanoTime();
+		double timeElapsed = (endTime - startTime) / 1000000;
+		timeElapsed /= calls;
+		timer /=calls;
+		
+		// print algorithm time
+		System.out.println("\nPerceptron was trained parallel in "+ timer + "ms (average)");
+
+		// print time elapsed
+		System.out.println("\nThe whole parallel Program ran for a total of " + timeElapsed + " ms (average)");
+
+	}
+	
+	private static void runTestCaseSequentially(String pathTestcase, int maxIterations) {
+		// start timer
+		double startTime = System.nanoTime();
+
+		// Read test case
+		ArrayList<Point> points = CsvParser.parseCSV(pathTestcase);
+		// change the calls here
+		int calls =10;
+		//reset timer
+		timer = 0;
+		for(int i = calls; i > 0; i--) {
+			PerceptronData test = PerceptronLogic.trainPerceptronSequentially(points, maxIterations);
+//			if(i == 1) {
+//				 Visualizer v = Visualizer.getInstance(points, test);
+//				 v.setVisible(true);
+//			}
+		}
+		
+		// end timer, get time elapsed and convert from ns to ms
+		double endTime = System.nanoTime();
+		double timeElapsed = (endTime - startTime) / 1000000;
+		timeElapsed /= calls;
+		timer /=calls;
+		
+		// print algorithm time
+		System.out.println("\nPerceptron was trained sequentially in "+ timer + "ms (average)");
+
+		// print time elapsed
+		System.out.println("\nThe whole sequentially Program ran for a total of " + timeElapsed + " ms (average)");
+	}
 	
 	/**
 	 * Generate a set amount of lin.separable points for each type (testing purposes)
@@ -111,10 +176,10 @@ public class Main {
 	 * And save them as CSV in the PATH_TESTCASE file defined above
 	 * 
 	 */ 
-	private static void generateTestcaseInseparable(int count) {
+	private static void generateTestcaseInseparable(int count, String path) {
 		//Generate Test case 
 		ArrayList<Point> points= generateRandomInseparablePoints(count);	
-		CsvParser.writeCSV(points, PATH_TESTCASE_INSEPARABLE);
+		CsvParser.writeCSV(points, path);
 	}
 	
 	/**
@@ -122,10 +187,15 @@ public class Main {
 	 * And save them as CSV in the PATH_TESTCASE file defined above
 	 * 
 	 */ 
-	private static void generateTestcaseSeparable(int count) {
+	private static void generateTestcaseSeparable(int count, String path) {
 		//Generate Test case 
 		ArrayList<Point> points= generateRandomSeparablePoints(count);	
-		CsvParser.writeCSV(points, PATH_TESTCASE_SEPARABLE);
+		CsvParser.writeCSV(points, path);
 	}
-	
+	public double getTimer() {
+		return timer;
+	}
+	public void setTimer(double newtimer) {
+		timer = newtimer;
+	}
 }

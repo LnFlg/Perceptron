@@ -144,10 +144,9 @@ public class PerceptronLogic {
 					// loop through all instances (complete one epoch) to get an error measure for
 					// this weightset
 
-					try {
+					synchronized (exec) {
+						
 						for (Point point : points) {
-
-							lock.writeLock().lock();
 
 							// calculate predicted class
 							output = calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
@@ -165,9 +164,7 @@ public class PerceptronLogic {
 						if (globalError < PerceptronLogic.bestSeparator.getError()) {
 							PerceptronLogic.bestSeparator = new PerceptronData(weights, globalError);
 						}
-					} finally {
-						lock.writeLock().unlock();
-					}
+					} 
 
 					// if points were misclassified, update weightset
 					if (misclassifiedPoints.size() != 0) {
@@ -195,7 +192,7 @@ public class PerceptronLogic {
 					}
 
 					misclassifiedPoints.clear();
-					System.out.println(globalError);
+					//System.out.println(globalError);
 					return Double.valueOf(globalError);
 
 				}
@@ -211,7 +208,7 @@ public class PerceptronLogic {
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Global Error " + globalError);
+		//System.out.println("Global Error " + globalError);
 
 		exec.shutdown();
 		try {
