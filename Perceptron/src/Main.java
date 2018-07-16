@@ -20,7 +20,7 @@ public class Main {
 	
 	private static final int MAX_ITERATIONS_Case1 = 100;
 	private static final int AMOUNT_POINTS_Case1 = 100;
-	private static final int MAX_ITERATIONS_Case2 = 1000;
+	private static final int MAX_ITERATIONS_Case2 = 10000;
 	private static final int AMOUNT_POINTS_Case2 = 100;
 	private static final int MAX_ITERATIONS_Case3 = 10000;
 
