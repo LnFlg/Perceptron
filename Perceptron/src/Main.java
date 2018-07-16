@@ -19,7 +19,7 @@ public class Main {
 	
 	private static final int MAX_ITERATIONS_Case1 = 100;
 	private static final int AMOUNT_POINTS_Case1 = 100;
-	private static final int MAX_ITERATIONS_Case2 = 10000;
+	private static final int MAX_ITERATIONS_Case2 = 1000;
 	private static final int AMOUNT_POINTS_Case2 = 100;
 	private static final int MAX_ITERATIONS_Case3 = 10000;
 
@@ -71,7 +71,8 @@ public class Main {
 		//reset timer
 		timer = 0;
 		for(int i = calls; i > 0; i--) {
-			PerceptronData test = PerceptronLogic.trainPerceptronParallel(points, maxIterations);
+			//PerceptronData test =
+			PerceptronLogic.trainPerceptronParallel(points, maxIterations);
 //			if(i == 1) {
 //				 Visualizer v = Visualizer.getInstance(points, test);
 //				 v.setVisible(true);
@@ -103,7 +104,8 @@ public class Main {
 		//reset timer
 		timer = 0;
 		for(int i = calls; i > 0; i--) {
-			PerceptronData test = PerceptronLogic.trainPerceptronSequentially(points, maxIterations);
+			//PerceptronData test = 
+			PerceptronLogic.trainPerceptronSequentially(points, maxIterations);
 //			if(i == 1) {
 //				 Visualizer v = Visualizer.getInstance(points, test);
 //				 v.setVisible(true);

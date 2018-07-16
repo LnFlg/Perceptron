@@ -7,10 +7,7 @@
 
 import java.util.*;
 
-import java.nio.*;
 
-
-import java.nio.*;
 
 
 import java.nio.charset.Charset;
@@ -54,7 +51,6 @@ public class CsvParser {
 	 * 
 	 */
 	public static void writeCSV(ArrayList<Point> points, String pathString) {
-		//TODO testing
 		Path savePath = Paths.get(pathString); 
 		ArrayList<String> lines = new ArrayList<>();
 		String line;
