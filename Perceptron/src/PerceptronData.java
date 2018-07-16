@@ -17,13 +17,13 @@ public class PerceptronData {
 	/**
 	 * Constructor
 	 */
-	public PerceptronData(double[] weights2, Double error) {
+	public PerceptronData(double[] weights, Double error) {
 		
 		this.error=error;
 		this.weights = new ArrayList<>();
-		this.weights.add(weights2[0]);
-		this.weights.add(weights2[1]);
-		bias=weights2[2];
+		this.weights.add(weights[0]);
+		this.weights.add(weights[1]);
+		bias=weights[2];
 	}
 
 	/**
