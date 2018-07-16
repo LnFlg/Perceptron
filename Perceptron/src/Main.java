@@ -1,7 +1,6 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * 
@@ -43,23 +42,14 @@ public class Main {
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
 			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_INSEPARABLE_Case2);
 		}
-<<<<<<< HEAD
 //		System.out.println("seperable");
 //		//Seperable
 //		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 //		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 //		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 //		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
-		System.out.println("inseperable");
-=======
-		System.out.println("seperable----------------------------");
-		//Seperable
-		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
-		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
-		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
-		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+
 		System.out.println("\ninseperable-------------------------");
->>>>>>> ffb4c3bb15ff42d5be28bf75595595a3799ac192
 		//Inseperable
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case2);// 1000x100
