@@ -22,6 +22,7 @@ public class Main {
 	private static final int AMOUNT_POINTS_Case1 = 100;
 	private static final int MAX_ITERATIONS_Case2 = 1000;
 	private static final int AMOUNT_POINTS_Case2 = 100;
+	private static final int MAX_ITERATIONS_Case3 = 10000;
 
 	/**
 	 * The Main function
@@ -42,19 +43,21 @@ public class Main {
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
 			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_INSEPARABLE_Case2);
 		}
-		System.out.println("seperable");
-		//Seperable
-		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
-		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
-		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
-		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+//		System.out.println("seperable");
+//		//Seperable
+//		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+//		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+//		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+//		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 		System.out.println("inseperable");
 		//Inseperable
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
-		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case2);// 1000x100
 		runTestCaseParallel(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
-		runTestCaseParallel(PATH_TESTCASE_INSEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+		runTestCaseParallel(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case2);// 1000x100
 		
+		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case3); //10000x100
+		runTestCaseParallel(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case3); //10000x100
 	}
 	
 	private static void runTestCaseParallel(String pathTestcase, int maxIterations) {
@@ -64,7 +67,7 @@ public class Main {
 		// Read test case
 		ArrayList<Point> points = CsvParser.parseCSV(pathTestcase);
 		// change the calls here
-		int calls =10;
+		int calls =100;
 		//reset timer
 		timer = 0;
 		for(int i = calls; i > 0; i--) {
@@ -96,7 +99,7 @@ public class Main {
 		// Read test case
 		ArrayList<Point> points = CsvParser.parseCSV(pathTestcase);
 		// change the calls here
-		int calls =10;
+		int calls =100;
 		//reset timer
 		timer = 0;
 		for(int i = calls; i > 0; i--) {
