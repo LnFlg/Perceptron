@@ -43,6 +43,7 @@ public class Main {
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
 			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_INSEPARABLE_Case2);
 		}
+<<<<<<< HEAD
 //		System.out.println("seperable");
 //		//Seperable
 //		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
@@ -50,6 +51,15 @@ public class Main {
 //		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 //		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 		System.out.println("inseperable");
+=======
+		System.out.println("seperable----------------------------");
+		//Seperable
+		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
+		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
+		System.out.println("\ninseperable-------------------------");
+>>>>>>> ffb4c3bb15ff42d5be28bf75595595a3799ac192
 		//Inseperable
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case2);// 1000x100
@@ -88,7 +98,7 @@ public class Main {
 		System.out.println("\nPerceptron parallel in \t\t"+ timer + "ms (average)");
 
 		// print time elapsed
-		System.out.println("\nProgram parallel in \t\t" + timeElapsed + " ms (average)");
+		System.out.println("Program parallel in \t\t" + timeElapsed + " ms (average)");
 
 	}
 	
@@ -120,7 +130,7 @@ public class Main {
 		System.out.println("\nPerceptron sequentially in \t"+ timer + "ms (average)");
 
 		// print time elapsed
-		System.out.println("\nProgram sequentially in \t" + timeElapsed + " ms (average)");
+		System.out.println("Program sequentially in \t" + timeElapsed + " ms (average)");
 	}
 	
 	/**
