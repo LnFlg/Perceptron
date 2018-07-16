@@ -20,7 +20,7 @@ public class Main {
 	
 	private static final int MAX_ITERATIONS_Case1 = 100;
 	private static final int AMOUNT_POINTS_Case1 = 100;
-	private static final int MAX_ITERATIONS_Case2 = 1000;
+	private static final int MAX_ITERATIONS_Case2 = 10000;
 	private static final int AMOUNT_POINTS_Case2 = 100;
 
 	/**
@@ -42,13 +42,13 @@ public class Main {
 		if (Files.notExists(Paths.get(PATH_TESTCASE_INSEPARABLE_Case2))) {
 			generateTestcaseInseparable(AMOUNT_POINTS_Case2, PATH_TESTCASE_INSEPARABLE_Case2);
 		}
-		System.out.println("seperable");
+		System.out.println("seperable----------------------------");
 		//Seperable
 		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseSequentially(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
 		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseParallel(PATH_TESTCASE_SEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
-		System.out.println("inseperable");
+		System.out.println("\ninseperable-------------------------");
 		//Inseperable
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case1, MAX_ITERATIONS_Case1); //100x100
 		runTestCaseSequentially(PATH_TESTCASE_INSEPARABLE_Case2, MAX_ITERATIONS_Case2);// 2000x400
@@ -85,7 +85,7 @@ public class Main {
 		System.out.println("\nPerceptron parallel in \t\t"+ timer + "ms (average)");
 
 		// print time elapsed
-		System.out.println("\nProgram parallel in \t\t" + timeElapsed + " ms (average)");
+		System.out.println("Program parallel in \t\t" + timeElapsed + " ms (average)");
 
 	}
 	
@@ -117,7 +117,7 @@ public class Main {
 		System.out.println("\nPerceptron sequentially in \t"+ timer + "ms (average)");
 
 		// print time elapsed
-		System.out.println("\nProgram sequentially in \t" + timeElapsed + " ms (average)");
+		System.out.println("Program sequentially in \t" + timeElapsed + " ms (average)");
 	}
 	
 	/**
