@@ -1,15 +1,12 @@
 import java.util.ArrayList;
 
 /**
- * 
- */
-
-/**
  * @author PC
  *
  */
 public class PerceptronLogic {
 
+	private volatile static PerceptronData bestSeparator = new PerceptronData();
 
 	
 	
@@ -36,13 +33,10 @@ public class PerceptronLogic {
 		weights[1] = randomDoubleNumber(0, 1);
 		weights[2] = randomDoubleNumber(0, 1);
 
-		
 		iteration = 0;
 		do {
 			iteration++;
 			globalError = 0;
-			
-			// loop through all instances (complete one epoch) to get an error measure for this weightset
 			for (Point point : points) {
 				// calculate predicted class
 				output = calculateOutput(theta, weights, point.getX_value(), point.getY_Value());
@@ -71,8 +65,9 @@ public class PerceptronLogic {
 				// update bias
 				weights[2] += LEARNING_RATE * localError;
 			}
+
 			misclassifiedPoints.clear();
-			
+
 		} while (globalError != 0 && iteration < maxIterations);
 
 		System.out.println("\n========\nDecision boundary equation:");
@@ -82,8 +77,6 @@ public class PerceptronLogic {
 		return bestSeparator;		
 	}
 
-	
-	
 	/**
 	 * returns a random double value within a given range
 	 * 
@@ -92,7 +85,7 @@ public class PerceptronLogic {
 		double d = min + Math.random() * (max - min);
 		return d;
 	}
-	
+
 	/**
 	 * returns a random int value within a given range
 	 * 

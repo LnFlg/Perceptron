@@ -11,6 +11,7 @@ public class PerceptronData {
 
 	//members
 	private ArrayList<Double> weights;
+	private ArrayList<Point> misclassifiedPoints = null;
 	private Double bias, error;
 	
 	/**
@@ -25,6 +26,20 @@ public class PerceptronData {
 		bias=weights2[2];
 	}
 
+	/**
+	 * Constructor
+	 */
+	public PerceptronData(double[] weights, Double error, ArrayList<Point> misclassifiedPoints) {
+		
+		this.error=error;
+		this.weights = new ArrayList<>();
+		this.weights.add(weights[0]);
+		this.weights.add(weights[1]);
+		bias=weights[2];
+		this.misclassifiedPoints=new ArrayList<Point>(misclassifiedPoints);
+	}
+
+	
 	/**
 	 * Empty Constructor
 	 */
@@ -47,5 +62,9 @@ public class PerceptronData {
 	public Double getError() {
 		return error;
 	}
-
+	
+	public ArrayList<Point> getMisclassifiedPoints() {
+		return misclassifiedPoints;
+	}
+	
 }
