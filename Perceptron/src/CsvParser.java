@@ -6,19 +6,15 @@
 // ich muss eine Array list erstellen mit in der For Schleife ein  Point contructor aufrufen  von point und das was in Array 
 
 import java.util.*;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.nio.*;
-=======
->>>>>>> af271feb77672ea9ad026d90c3692096cc8a21d2
-=======
 
 import java.nio.*;
 
-=======
+
+import java.nio.*;
+
+
 import java.nio.charset.Charset;
->>>>>>> f0682f9bc0738a9ff9f47491104ab4f5b6448687
->>>>>>> parent of b974b30... Revert "Merge branch 'master' of https://github.com/LnFlg/Perceptron"
+
 import java.nio.file.*;
 
 public class CsvParser {
@@ -36,23 +32,12 @@ public class CsvParser {
 			for (String line : lines) {
 
 				String[] result = line.split("\n");
-<<<<<<< HEAD
-				for (String s: result) {
-					String[] pointarrayList = s.split(",");
-<<<<<<< HEAD
-					Point point = new Point(Double.parseDouble(pointarrayList[0]),Double.parseDouble(pointarrayList[1]), Integer.parseInt(pointarrayList[2]));
-=======
-					Point point = new Point(Double.parseDouble(pointarrayList[0]), Double.parseDouble(pointarrayList[1]), Integer.parseInt(pointarrayList[2]));
-<<<<<<< HEAD
->>>>>>> af271feb77672ea9ad026d90c3692096cc8a21d2
-=======
-=======
+
 				for (String s : result) {
 					String[] pointAttributes = s.split(",");
 					Point point = new Point(Double.parseDouble(pointAttributes[0]),
 							Double.parseDouble(pointAttributes[1]), Integer.parseInt(pointAttributes[2]));
->>>>>>> f0682f9bc0738a9ff9f47491104ab4f5b6448687
->>>>>>> parent of b974b30... Revert "Merge branch 'master' of https://github.com/LnFlg/Perceptron"
+
 					pointList.add(point);
 				}
 
